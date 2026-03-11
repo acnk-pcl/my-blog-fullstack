@@ -1,5 +1,5 @@
 # Full-stack blog project auto-push script
-# Usage: .\git-push-blog.ps1 [optional commit message]
+# Usage: .\git-push-fullstack.ps1 [optional commit message]
 
 param(
     [string]$CommitMessage = "Update full-stack blog project"
@@ -12,33 +12,33 @@ Set-Location $projectDir
 
 # Check if in Git repository
 if (!(Test-Path ".git")) {
-    Write-Host "❌ Current directory is not a Git repository!" -ForegroundColor Red
-    Write-Host "Please initialize Git repo and add remote origin" -ForegroundColor Yellow
+    Write-Host "❌ 当前目录不是 Git 仓库！" -ForegroundColor Red
+    Write-Host "请先初始化 Git 仓库并添加远程地址" -ForegroundColor Yellow
     exit 1
 }
 
 # Add all changes
-Write-Host "🔄 Adding files..." -ForegroundColor Cyan
+Write-Host "🔄 正在添加文件..." -ForegroundColor Cyan
 git add .
 
 # Check if there are changes to commit
 $hasChanges = git status --porcelain
 if ([string]::IsNullOrEmpty($hasChanges)) {
-    Write-Host "✅ No new changes to push" -ForegroundColor Green
+    Write-Host "✅ 没有新的更改需要推送" -ForegroundColor Green
     exit 0
 }
 
 # Commit changes
-Write-Host "📝 Committing changes..." -ForegroundColor Cyan
+Write-Host "📝 正在提交更改..." -ForegroundColor Cyan
 git commit -m "$CommitMessage"
 
 # Push to GitHub
-Write-Host "📤 Pushing to GitHub..." -ForegroundColor Cyan
+Write-Host "🚀 正在推送到 GitHub..." -ForegroundColor Cyan
 git push origin main
 
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "✅ Push successful! OpenClaw will analyze your full-stack project." -ForegroundColor Green
-    Write-Host "💡 Tip: Say 'analyze my blog project' in chat for instant feedback" -ForegroundColor Yellow
+    Write-Host "✅ 推送成功！" -ForegroundColor Green
+    Write-Host "💡 OpenClaw 将自动分析你的全栈项目。" -ForegroundColor Yellow
 } else {
-    Write-Host "❌ Push failed! Please check network and GitHub credentials." -ForegroundColor Red
+    Write-Host "❌ 推送失败！请检查网络连接和 GitHub 凭证。" -ForegroundColor Red
 }
