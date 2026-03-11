@@ -1,0 +1,7 @@
+POST http://localhost:8080/article/add
+Content-Type: application/json
+
+{
+  "title": "我的第一篇博客",
+  "content": "Spring Boot + MyBatis 测试成功！"
+}
